@@ -17,7 +17,7 @@ function onDeviceReadyGps() {
   setTimeout(function(){ startLocation(); }, 3000);
 }
 function checkStatusGPS(){
-  aler('checkStatusGPS');
+  alert('checkStatusGPS');
   BackgroundGeolocation.checkStatus(checkStatusSuccess, checkStatusFail);
 }
 function checkStatusSuccess(response){
@@ -28,12 +28,12 @@ function checkStatusFail(response){
 }
 // start()
 function startLocation(){
-  aler('startLocation');
+  alert('startLocation');
   BackgroundGeolocation.start();
   setTimeout(function(){ checkFive(1); }, 3000);
 }
 function checkFive(nro){
-  aler('checkFive');
+  alert('checkFive');
   BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
   nro++;
   if(nro<=3){
