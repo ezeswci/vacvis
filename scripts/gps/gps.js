@@ -6,7 +6,7 @@
   }
 ); */
 document.addEventListener('deviceready', onDeviceReadyGps, false);
-function onDeviceReady() {
+function onDeviceReadyGps() {
   alert('comienza mambo GPS');
   BackgroundGeolocation.configure({
     debug: true,
