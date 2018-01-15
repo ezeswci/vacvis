@@ -10,10 +10,10 @@ document.addEventListener("deviceready", function() {
 }, false);
 
 function onMapReady() {
-  alert("mapa listo!");
+  alert("Mapa listo!");
 }
 function onButtonClick() {
-
+  alert("Click en boton");
   // Move to the position with animation
   map.animateCamera({
     target: {lat: 37.422359, lng: -122.084344},
