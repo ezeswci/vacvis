@@ -43,24 +43,25 @@ function onButtonClick() {
         alert("Abre Juan perez");
 
       });
-      map.addMarker({
-        position: {lat: -34.4191274, lng: -58.81449651},
-        title: "Segundo paciente \n" +
-               "Pedro Aznar",
-        snippet: "Proxima: 15-03-2019",
-        animation: plugin.google.maps.Animation.BOUNCE
-      }, function(marker) {
+    });
+    map.addMarker({
+      position: {lat: -34.4191274, lng: -58.81449651},
+      title: "Segundo paciente \n" +
+             "Pedro Aznar",
+      snippet: "Proxima: 15-03-2019",
+      animation: plugin.google.maps.Animation.BOUNCE
+    }, function(marker) {
 
-        // Show the info window
-        marker.showInfoWindow();
+      // Show the info window
+      marker.showInfoWindow();
 
-        // Catch the click event
-        marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+      // Catch the click event
+      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
 
-          // To do something...
-          alert("Abre Pedro");
+        // To do something...
+        alert("Abre Pedro");
 
-        });
+      });
     });
   });
 }
