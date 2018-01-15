@@ -38,6 +38,12 @@
 	<!-- Core plugins -->
     <plugin name="com.cmackay.plugins.googleanalytics" source="npm" />
     <plugin name="cordova-plugin-inappbrowser" source="npm" />
+    <plugin name="cordova-plugin-googlemaps" spec="2.0.0">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAN1MZhpJ6o5-tOABdfUurxrHapSvQO-70" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyCLbJHW9Ira14XC1MWHxu5wlPTYrugAb1w" />
+        <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="My custom when in use message" />
+        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="My custom always usage message" />
+    </plugin>
 	<!-- Define app icon for each platform. -->
 	<icon src="img/icon.png" />
   <splash src="img/splash.png"/>
