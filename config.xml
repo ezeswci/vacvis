@@ -37,7 +37,6 @@
   <plugin name="cordova-plugin-mauron85-background-geolocation" source="npm" />
 	<!-- Core plugins -->
     <plugin name="com.cmackay.plugins.googleanalytics" source="npm" />
-    <plugin name="cordova-plugin-inappbrowser" source="npm" />
 	<!-- Define app icon for each platform. -->
 	<icon src="img/icon.png" />
   <splash src="img/splash.png"/>
