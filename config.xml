@@ -33,7 +33,8 @@
 
 
 
-	<!-- Record Audio -->
+	<!-- GPS -->
+  <plugin name="cordova-plugin-mauron85-background-geolocation" source="npm" />
 	<!-- Core plugins -->
     <plugin name="com.cmackay.plugins.googleanalytics" source="npm" />
     <plugin name="cordova-plugin-inappbrowser" source="npm" />
