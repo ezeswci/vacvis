@@ -2858,3 +2858,12 @@ body.wrapkit-header-rtl .dropdown-menu .pull-left {
     color: rgba(22, 24, 27, .87);
     padding: 6px 12px
 }
+/* especiales */
+.reload_paciente{
+    float: right;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    color: #6ab5ec;
+    z-index: 10;
+}

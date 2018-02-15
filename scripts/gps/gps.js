@@ -5,48 +5,39 @@
     console.log(locations);
   }
 ); */
-//document.addEventListener('deviceready', onDeviceReadyGps, false);
+document.addEventListener('deviceready', onDeviceReadyGps, false);
 function onDeviceReadyGps() {
-  alert('comienza mambo GPS');
+  //alert('comienza mambo GPS');
   BackgroundGeolocation.configure({
     debug: true,
     desiredAccuracy:'HIGH_ACCURACY',
     maxLocations:10// No me interesa mucho guardar las locations, por eso le pongo 10
   });
-  checkStatusGPS();
-  setTimeout(function(){ startLocation(); }, 3000);
+  //checkStatusGPS();
+  setTimeout(function(){ getLocationGps(); }, 1000);
 }
-function checkStatusGPS(){
-  alert('checkStatusGPS');
+function getLocationGps(){
   BackgroundGeolocation.checkStatus(checkStatusSuccess, checkStatusFail);
 }
 // Como me da el status [{"isRunning":true/false, 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
 function checkStatusSuccess(response){
   alert('checkStatusSuccess: '+JSON.stringify(response));
+  if(response.isRunning){
+    BackgroundGeolocation.start();
+    BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
+  }
+  else{// Apagado
+    alert("Apagado");
+  }
 }
 function checkStatusFail(response){
   alert('checkStatusFail: '+JSON.stringify(response));
 }
 // start()
-function startLocation(){
-  alert('startLocation');
-  BackgroundGeolocation.start();
-  setTimeout(function(){ checkFive(1); }, 3000);
-}
-function checkFive(nro){
-  alert('checkFive');
-  BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
-  nro++;
-  if(nro<=3){
-    setTimeout(function(){ checkFive(nro); }, 3000);
-  }else{
-    BackgroundGeolocation.stop();
-    BackgroundGeolocation.checkStatus(checkStatusSuccess, checkStatusFail);
-    BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
-  }
-}
 function getLocationsSuccess(response){
   alert('getLocationsSuccess: '+JSON.stringify(response));
+  window.location=response;
+  BackgroundGeolocation.stop();
 }
 // Como me da las locations [{provider:'gps', 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
 function getLocationsFail(response){
