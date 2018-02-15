@@ -28,6 +28,8 @@ function checkStatusSuccess(response){
   }
   else{// Apagado
     alert("Apagado");
+    BackgroundGeolocation.start();
+    getLocationGps();
   }
 }
 function checkStatusFail(response){
