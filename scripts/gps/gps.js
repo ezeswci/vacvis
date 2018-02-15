@@ -17,6 +17,7 @@ function onDeviceReadyGps() {
   setTimeout(function(){ getLocationGps(); }, 1000);
 }
 function getLocationGps(){
+  BackgroundGeolocation.start();
   BackgroundGeolocation.checkStatus(checkStatusSuccess, checkStatusFail);
 }
 // Como me da el status [{"isRunning":true/false, 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
@@ -38,8 +39,13 @@ function checkStatusFail(response){
 // start()
 function getLocationsSuccess(response){
   alert('getLocationsSuccess: '+JSON.stringify(response));
-  window.location=response;
-  BackgroundGeolocation.stop();
+  if(response.latitude!=null){
+    window.gpslocation=response;
+    BackgroundGeolocation.stop();
+  }else{
+    alert("Busco de nuevo");
+    BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
+  }
 }
 // Como me da las locations window.location= [{provider:'gps', 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
 function getLocationsFail(response){
