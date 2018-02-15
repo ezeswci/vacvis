@@ -44,6 +44,7 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="My custom when in use message" />
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="My custom always usage message" />
     </plugin>
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<!-- Define app icon for each platform. -->
 	<icon src="img/icon.png" />
   <splash src="img/splash.png"/>

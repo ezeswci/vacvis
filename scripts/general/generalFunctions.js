@@ -123,7 +123,12 @@ function parse0LessThan10(int){
 	var int=parseInt(int);
 	if(int<10){return"0"+int;}else{return int;}
 }
+function distanciaDeRefernciaEnMts(){
+	var pid=getQueryVariableTranslated("id");
+	var paciente=searchPatientInArr(pid);
+	return getDistanceFromLatLonInMts(paciente.geo.latitud,paciente.geo.longitud,window.location.latitude,window.location.longitude);
+}
 function getGpsDir(){
-	alert("GPS CONNECT");
-	return {'dir':"Quintana 288",'lat':"36.090000",'lng':"55.990000"}
+	var distancia= "a "+distanciaDeRefernciaEnMts()+" metros de la referencia";
+	return {'dir':distancia,'lat':window.location.latitude,'lng':window.location.longitude}
 }

@@ -39,7 +39,7 @@ function getLocationsSuccess(response){
   window.location=response;
   BackgroundGeolocation.stop();
 }
-// Como me da las locations [{provider:'gps', 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
+// Como me da las locations window.location= [{provider:'gps', 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
 function getLocationsFail(response){
   alert('getLocationsFail: '+JSON.stringify(response));
 }
