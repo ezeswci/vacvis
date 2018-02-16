@@ -110,9 +110,10 @@ function secondsFromNow(dateCheked){
     return(diffSecs);
 }
 function searchPatientInArr(id){
-	for(patient in window.memory.patients){
-		if(window.memory.patients[patient].id=id){
-			return window.memory.patients[patient];
+	var pp;
+	for(pp in window.memory.patients){
+		if(window.memory.patients[pp].id==id){
+			return window.memory.patients[pp];
 		}
 	}
 }

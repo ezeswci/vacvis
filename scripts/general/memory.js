@@ -24,6 +24,7 @@ if(getCookie("user")!=""){
 		setCookie("memory-user:"+window.user.prestador_id+"-", JSON.stringify(window.memory), 120);
 	}else{
 		window.memory=JSON.parse(readUserMemory);
+    //console.log("Leo la memoria"+JSON.stringify(window.memory));
 	}
   // Si esta logueado
   setTimeout(function(){
@@ -122,7 +123,6 @@ function updateCommentBack(pending,comentario){
                   data: pending.data
                 })
                 .done(function(xhr) {
-                  //$( "#pcloader" ).remove();
                   // Agregar comentario a la visita como sync
                   toastr.success('Comentario pendiente sincronizado correctamente');
                   addCommentToMemory(xhr,true);

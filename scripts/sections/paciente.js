@@ -19,6 +19,7 @@ $(function() { // shorthand $() for $( document ).ready()
 function loadPatient(){
   var pid=getQueryVariableTranslated("id");
   var patient=searchPatientInArr(pid);
+  console.log(pid+"--"+JSON.stringify(patient));
   if(patient.lastSync!=null){// busco el paciente en el array
     if(needsSync(patient.lastSync)){
       selectPatientFromServer();
@@ -160,8 +161,8 @@ function parseVisitas(visitas){
 /* Agregar comentarios */
 function distanciaEnElMapa(){
   bootbox.dialog({
-    message: 'Usted se encuenta a '+distanciaDeRefernciaEnMts()+' Metros del lugar a realizar la visita.',
-    title: 'A '+distanciaDeRefernciaEnMts()+' Metros',
+    message: 'Usted se encuentra a '+distanciaDeRefernciaEnMts()+' metros del lugar a realizar la visita.',
+    title: 'A '+distanciaDeRefernciaEnMts()+' metros',
     buttons: {
         cancel: {
             label: 'Mapa',
@@ -347,7 +348,7 @@ var PANEL_DATOS_PACIENTE=''
 +'          <div class="panel-body">'
 +'            <form role="form">'
 +'              <div class="form-group">'
-+'                <label class="control-label" for="mask-date">Ultima prestación </label>'
++'                <label class="control-label" for="mask-date">Última prestación </label>'
 +'                <div class="input-group input-group-in">'
 +'                  <span class="input-group-addon"><i class="icon-calendar"></i></span>'
 +'                  <input data-mask="date" id="mask-date" class="form-control" placeholder="{ULTIMA_PRESTACION}" disabled="">'

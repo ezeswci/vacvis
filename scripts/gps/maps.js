@@ -69,7 +69,7 @@ function openOnlyOnePacient(){
         snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
-          marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+          marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);
         });
       });

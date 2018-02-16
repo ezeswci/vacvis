@@ -46,12 +46,16 @@ function addPatientsFromServer(page){
                   headers: { 'Authorization': window.user.token }
                 })
                 .done(function(xhr) {
-                  $( "#pcloader" ).remove();
                   managePatientsServer(xhr);
                   parsePacientes(xhr.Patients);
                   testIfPendient();
                 })
-                .fail(function(xhr) {generalErrors(xhr);});
+                .fail(function(xhr) {
+                  generalErrors(xhr);
+                  $("#refreshPacients").button('reset');
+                }).always(function() {
+                  $( "#pcloader" ).remove();
+                });
                 // Si falla: $("#refreshPacients").button('reset'); ?
 }
 // Me fijo de cargar todos del servidor
@@ -62,7 +66,7 @@ function managePatientsServer(xhr){
     window.patientsIdsFromServer.push(xhr.Patients[patient].id);
     flag=0;
     for(mpatient in window.memory.patients){
-      if(xhr.Patients[patient].id==window.memory.patients[mpatient]){// Si existe actualizo el paciente
+      if(xhr.Patients[patient].id==window.memory.patients[mpatient].id){// Si existe actualizo el paciente
         flag=1;
         window.memory.patients[mpatient].name=xhr.Patients[patient].name;
         window.memory.patients[mpatient].lastname=xhr.Patients[patient].lastname;
@@ -75,7 +79,7 @@ function managePatientsServer(xhr){
         window.memory.patients[mpatient].geo.longitud=xhr.Patients[patient].geo.longitud;
         break;
       }
-      }
+    }
     if(flag==0){memory.patients.push({// Si no existe creo el paciente
       "id":xhr.Patients[patient].id,
       "name":xhr.Patients[patient].name,
@@ -86,7 +90,7 @@ function managePatientsServer(xhr){
       "ultima_prestacion":xhr.Patients[patient].ultima_prestacion,
       "proxima_prestacion":xhr.Patients[patient].proxima_prestacion,
       "geo":{"latitud":xhr.Patients[patient].geo.latitud,"longitud":xhr.Patients[patient].geo.longitud},
-      "visits":[],
+      "Visitas":[],
       "lastSync":null
     })}
   }// Fin recorro los pacientes de la consulta
