@@ -21,26 +21,10 @@ function onMapReady(){
   }
 }
 function allPacients(){
-  alert("allPacients");
-  map.one(plugin.google.maps.event.MAP_READY, function() {
-      var onSuccess = function(location) {
-          map.addCircle({
-          'center': location.latLng,
-          'radius': 20,
-          'strokeColor' : '#176c99',
-          'strokeWidth': 5,
-          'fillColor' : '#6ab2ec'
-          }, function() {
-          map.animateCamera({
-            target: location.latLng,
-            zoom: 16
-          });
-        });
-      };
-      var onError = function(msg) {
-        alert(JSON.stringify(msg));
-      };
-    }
+  map.animateCamera({
+    target: {lat: -34.543849, lng: -58.474227},
+    zoom: 17
+  });
   var patients=window.memory.patients;
   for(patient in patients){
     paciente=patients[patient];
@@ -61,6 +45,10 @@ function allPacients(){
   }
 }
 function openOnlyOnePacient(){
+
+
+
+
   plugin.google.maps.LocationService.getMyLocation(function(result) {
         map.addCircle({
         'center': {lat: location.latLng.lat, lng: location.latLng.lng},
