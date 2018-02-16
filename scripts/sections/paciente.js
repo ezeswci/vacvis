@@ -30,7 +30,7 @@ function loadPatient(){
   }
 }
 function openPacientMap(){
-  window.location='gps.html?id='+getQueryVariableTranslated("id");
+  window.location='gps.html?id='+getQueryVariableTranslated("id")+"&lat="+window.gpslocation.latitude+"&lng="+window.gpslocation.longitude;
 }
 function selectPatientFromServer(){
   //$("#pacients-container").append(addLoader());
