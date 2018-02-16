@@ -70,7 +70,7 @@ function checkCookie(){ // Check if cookies are enable
 // Otros general
 function generalErrors(xhr){
 	// xhr.status
-	alert("Error: "+xhr.responseText);
+	toastr.error('Sin conexión');
 }
 function parseDate(date){
 	var dia= date.substring(8, 10);// Dia del mes
