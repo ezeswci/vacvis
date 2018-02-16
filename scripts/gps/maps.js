@@ -14,23 +14,50 @@ function volverAlAnterior(){
   }
 }
 function onMapReady(){
-  alert("map ready");
   if(getQueryVariableTranslated("id")>0){
-    alert("only One: "+getQueryVariableTranslated("id"));
-    openOnlyOnePacient(getQueryVariableTranslated("id"));
+    openOnlyOnePacient();
   }else{
     allPacients();
   }
 }
 function allPacients(){
   alert("allPacients");
+  map.animateCamera({
+    target: {lat: -34.4191274, lng: -58.81449651},
+    zoom: 15,
+    tilt: 60,
+    bearing: 140,
+    duration: 2000
+  }, function() {
+    var patients=window.memory.patients;
+    for(patient in patients){
+      paciente=patients[patient];
+      map.addMarker({
+        position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        animation: plugin.google.maps.Animation.BOUNCE
+      }, function(marker) {
+        // Show the info window
+        //marker.showInfoWindow();
+        // Catch the click event
+        marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+          // To do something...
+          window.location="paciente.html?id="+paciente.id;
+        });
+      });
+    }
+  });
+
+}
+function openOnlyOnePacient(){
   plugin.google.maps.LocationService.getMyLocation(function(result) {
         map.addCircle({
         'center': {lat: location.latLng.lat, lng: location.latLng.lng},
         'radius': 20,
-        'strokeColor' : '#AA00FF',
+        'strokeColor' : '#176c99',
         'strokeWidth': 5,
-        'fillColor' : '#880000'
+        'fillColor' : '#6ab2ec'
       }, function(circle) {});
       map.animateCamera({
         target: {lat: location.latLng.lat, lng: location.latLng.lng},
@@ -40,26 +67,28 @@ function allPacients(){
         duration: 2000
       }, function() {
         var patients=window.memory.patients;
+        var pid=getQueryVariableTranslated("id");
         for(patient in patients){
           paciente=patients[patient];
-          map.addMarker({
-            position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-            title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-            snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
-            animation: plugin.google.maps.Animation.BOUNCE
-          }, function(marker) {
-            // Show the info window
-            //marker.showInfoWindow();
-            // Catch the click event
-            marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-              // To do something...
-              alert("Abre paciente.html?id="+paciente.id);
+          if(paciente.id==pid){
+            map.addMarker({
+              position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+              title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+              snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+              animation: plugin.google.maps.Animation.BOUNCE
+            }, function(marker) {
+              // Show the info window
+              //marker.showInfoWindow();
+              // Catch the click event
+              marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+                // To do something...
+                window.location="paciente.html?id="+paciente.id;
+              });
             });
-          });
+          }
         }
       });
   });
-
 }
 /*
 function onMapReady() {
