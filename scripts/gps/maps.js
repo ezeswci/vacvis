@@ -22,6 +22,13 @@ function onMapReady(){
 }
 function allPacients(){
   alert("allPacients");
+  map.animateCamera({
+    target: {lat: -34.5428642, lng: -58.4737194},
+    zoom: 15,
+    tilt: 60,
+    bearing: 140,
+    duration: 2000
+  }, function() {
     var patients=window.memory.patients;
     for(patient in patients){
       paciente=patients[patient];
@@ -40,6 +47,7 @@ function allPacients(){
         });
       });
     }
+  }
 }
 function openOnlyOnePacient(){
   plugin.google.maps.LocationService.getMyLocation(function(result) {
