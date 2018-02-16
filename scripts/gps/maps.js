@@ -42,7 +42,8 @@ function allPacients(){
         marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
           alert(marker.get('id'));
           window.location="paciente.html?id="+marker.get('id');
-      }););
+      });
+    });
   }
 }
 function openOnlyOnePacient(){
