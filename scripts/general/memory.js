@@ -30,7 +30,6 @@ if(getCookie("user")!=""){
     if(checkIfSyncPendient()){
       $( "#refreshLoader" ).append('<span class="dotted dotted-danger"></span>');
     }
-    if($( "#refreshLoader" ).length){
       $( "#refreshLoader" ).click(function() {
         if(checkIfSyncPendient()){
           refreashLoader();
@@ -39,7 +38,6 @@ if(getCookie("user")!=""){
           toastr.success('Todo está sincronizado');
         }
       });
-    }
   }, 600);
 }
 //window.patientsIdsFromServer

@@ -38,10 +38,9 @@ function allPacients(){
       animation: plugin.google.maps.Animation.BOUNCE
     },
      function(marker) {
-        marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
-          goToPacient(marker.getSnippet());
-          //alert(marker.getSnippet());
-          window.location="paciente.html?id="+marker.get('id');
+       var pid=paciente.id;
+        marker.on(plugin.google.maps.event.INFO_CLICK, function(pid) {
+          window.location="paciente.html?id="+pid;
       });
     });
   }
