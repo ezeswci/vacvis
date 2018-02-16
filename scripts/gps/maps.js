@@ -32,9 +32,10 @@ function allPacients(){
       });
     }
     map.addMarker({
+      id:paciente.id,
       position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
       title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion)+" \n" +"-id="+paciente.id,
+      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
       animation: plugin.google.maps.Animation.BOUNCE
     },
      function(marker) {
