@@ -81,7 +81,7 @@ function goToPacient(geo){
   var patients=window.memory.patients;
   for(patient in patients){
     paciente=patients[patient];
-    if(paciente.geo.latitud==geo.lat&&paciente.geo.longitud==geo.lng&&){
+    if(paciente.geo.latitud==geo.lat&&paciente.geo.longitud==geo.lng){
       window.location="paciente.html?id="+paciente.id;
     }
   }
