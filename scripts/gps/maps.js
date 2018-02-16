@@ -24,38 +24,41 @@ function onMapReady(){
 }
 function allPacients(){
   alert("allPacients");
-  var patients=window.memory.patients;
-  for(patient in patients){
-    paciente=patients[patient];
-    map.addMarker({
-      position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-      title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion)
-    }, function(marker) {
-      // Show the info window
-      marker.showInfoWindow();
-      // Catch the click event
-      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-        // To do something...
-        alert("Abre paciente.html?id="+paciente.id);
-      });
-    });
-  }
-  /*plugin.google.maps.LocationService.getMyLocation(function(result) {
-    alert(["Current your location:\n",
-        "latitude:" + location.latLng.lat.toFixed(3),
-        "longitude:" + location.latLng.lng.toFixed(3),
-        "speed:" + location.speed,
-        "time:" + location.time,
-        "bearing:" + location.bearing].join("\n"));
+  plugin.google.maps.LocationService.getMyLocation(function(result) {
         map.addCircle({
         'center': {lat: location.latLng.lat, lng: location.latLng.lng},
         'radius': 20,
         'strokeColor' : '#AA00FF',
         'strokeWidth': 5,
         'fillColor' : '#880000'
-      }, function(circle) { ... });
-  });*/
+      }, function(circle) {});
+      map.animateCamera({
+        target: {lat: location.latLng.lat, lng: location.latLng.lng},
+        zoom: 15,
+        tilt: 60,
+        bearing: 140,
+        duration: 2000
+      }, function() {
+        var patients=window.memory.patients;
+        for(patient in patients){
+          paciente=patients[patient];
+          map.addMarker({
+            position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+            title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+            snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+            animation: plugin.google.maps.Animation.BOUNCE
+          }, function(marker) {
+            // Show the info window
+            //marker.showInfoWindow();
+            // Catch the click event
+            marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+              // To do something...
+              alert("Abre paciente.html?id="+paciente.id);
+            });
+          });
+        }
+      });
+  });
 
 }
 /*
