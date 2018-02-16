@@ -25,6 +25,13 @@ function allPacients(){
     target: {lat: -34.543849, lng: -58.474227},
     zoom: 17
   });
+  map.addCircle({
+  'center': {lat: -34.543849, lng: -58.474227},
+  'radius': 20,
+  'strokeColor' : '#176c99',
+  'strokeWidth': 5,
+  'fillColor' : '#6ab2ec'
+  });
   var patients=window.memory.patients;
   for(patient in patients){
     paciente=patients[patient];
