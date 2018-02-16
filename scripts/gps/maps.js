@@ -22,31 +22,43 @@ function onMapReady(){
 }
 function allPacients(){
   alert("allPacients");
-  map.animateCamera({
-    target: {lat: -34.542864, lng: -58.473719},
-    zoom: 17,
-    tilt: 60,
-    bearing: 140,
-    duration: 5000
-  }, function() {
-    var patients=window.memory.patients;
-    for(patient in patients){
-      paciente=patients[patient];
-      map.addMarker({
-        position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
-        animation: plugin.google.maps.Animation.BOUNCE
-      }, function(marker) {
-        // Show the info window
-        //marker.showInfoWindow();
-        // Catch the click event
-        marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-          // To do something...
-          window.location="paciente.html?id="+paciente.id;
+  map.one(plugin.google.maps.event.MAP_READY, function() {
+      var onSuccess = function(location) {
+          map.addCircle({
+          'center': location.latLng,
+          'radius': 20,
+          'strokeColor' : '#176c99',
+          'strokeWidth': 5,
+          'fillColor' : '#6ab2ec'
+          }, function() {
+          map.animateCamera({
+            target: location.latLng,
+            zoom: 16
+          });
         });
-      });
+      };
+      var onError = function(msg) {
+        alert(JSON.stringify(msg));
+      };
     }
+  var patients=window.memory.patients;
+  for(patient in patients){
+    paciente=patients[patient];
+    map.addMarker({
+      position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+      title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+      animation: plugin.google.maps.Animation.BOUNCE
+    }, function(marker) {
+      // Show the info window
+      //marker.showInfoWindow();
+      // Catch the click event
+      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+        // To do something...
+        window.location="paciente.html?id="+paciente.id;
+      });
+    });
+  }
 }
 function openOnlyOnePacient(){
   plugin.google.maps.LocationService.getMyLocation(function(result) {
