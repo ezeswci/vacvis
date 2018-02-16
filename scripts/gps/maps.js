@@ -34,17 +34,9 @@ function allPacients(){
     map.addMarker({
       position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
       title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion)+" \n" +'<button type="button" class="btn btn-success" href="paciente.html?id='+paciente.id+'">VER</button>',
       animation: plugin.google.maps.Animation.BOUNCE
-    }, function(marker) {
-      // Show the info window
-      //marker.showInfoWindow();
-      // Catch the click event
-      marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-        // To do something...
-        window.location="paciente.html?id="+paciente.id;
-      });
-    });
+    },);
   }
 }
 function openOnlyOnePacient(){
