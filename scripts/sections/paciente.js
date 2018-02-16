@@ -8,6 +8,9 @@ $(function() { // shorthand $() for $( document ).ready()
   loadPatient();
   $( "#agregarVisita" ).click(function() {
     agregarVisita(this);
+  });verEnMapa
+  $( "#verEnMapa" ).click(function() {
+    distanciaEnElMapa();
   });
   $( "#refreshPacient" ).click(function() {
     selectPatientFromServer();
@@ -25,6 +28,9 @@ function loadPatient(){
     }else{// si es la primera vez trae desde la pagina 1
     selectPatientFromServer();
   }
+}
+function openPacientMap(){
+  window.location='gps.html?id='+getQueryVariableTranslated("id");
 }
 function selectPatientFromServer(){
   //$("#pacients-container").append(addLoader());
@@ -152,6 +158,25 @@ function parseVisitas(visitas){
   // Fin Agregar las presentaciones syncronizadas
 }
 /* Agregar comentarios */
+function distanciaEnElMapa(){
+  bootbox.dialog({
+    message: 'Usted se encuenta a '+distanciaDeRefernciaEnMts()+' Metros del lugar a realizar la visita.',
+    title: 'A '+distanciaDeRefernciaEnMts()+' Metros',
+    buttons: {
+        cancel: {
+            label: 'Mapa',
+            className: 'btn-info'
+            callback: function() {
+              openPacientMap();
+            }
+        },
+      success: {
+        label: 'Aceptar',
+        className: 'btn-success'
+      }
+    }
+  });
+}
 function agregarComentario(el,id){
     // Si la visita no esta sincronizada no te permite comentar!
     $(el).button('loading');
@@ -311,11 +336,11 @@ var PANEL_DATOS_PACIENTE=''
 +'    <div class="col-sm-8">'
 +'      <div class="visible-xs">'
 +'        <h2 class="display-name media-heading text-teal">{PACIENTE_NOMBRE} {PACIENTE_APELLIDO}</h2>'
-+'        <p class="text-muted mb-4x"> <span><i class="fa fa-map-marker fa-fw"></i>{PACIENTE_DIRECCION}</span></p>'
++'        <p class="text-muted mb-4x" onclick="openPacientMap();"> <span><i class="fa fa-map-marker fa-fw"></i>{PACIENTE_DIRECCION}</span></p>'
 +'      </div>'
 +'      <div class="hidden-xs">'
 +'        <h2 class="media-heading text-light">{PACIENTE_NOMBRE} {PACIENTE_APELLIDO}</h2>'
-+'        <p class="mb-4x text-light"><span><i class="fa fa-map-marker fa-fw"></i> {PACIENTE_DIRECCION}</span></p>'
++'        <p class="mb-4x text-light" onclick="openPacientMap();"><span><i class="fa fa-map-marker fa-fw"></i> {PACIENTE_DIRECCION}</span></p>'
 +'      </div>'
 +'      <div class="mt-4x">'
 +'        <div class="panel fade in panel-default panel-fill" data-fill-color="true" data-init-panel="true">'

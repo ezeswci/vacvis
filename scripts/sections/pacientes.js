@@ -20,6 +20,9 @@ function filterSearchBox(text){
     }
   });
 }
+function openPacientsInMap(){
+  window.location='gps.html';
+}
 function loadPatients(){
   if(window.memory.lastSync!=null){// No es la primera vez
       parsePacientes(window.memory.patients);
