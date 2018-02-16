@@ -51,6 +51,7 @@ function allPacients(){
   }, function(circle) { ... });
   */
 }
+/*
 function onMapReady() {
   //alert("Click en boton");
   map.animateCamera({
@@ -107,6 +108,6 @@ function onMapReady() {
         alert("Abre Pedro");
 
       });
-    });*/
+    });*//*
   });
-}
+}*/
