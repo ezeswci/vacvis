@@ -41,9 +41,7 @@ function allPacients(){
      function(marker) {
        var pid=paciente.id;
         marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
-          console.log(JSON.stringify(marker));
-          alert(JSON.stringify(marker));
-          //window.location="paciente.html?id="+pid;
+          goToPacient(marker);// {"lat":nro,"lng":nro}
       });
     });
   }
@@ -72,14 +70,19 @@ function openOnlyOnePacient(){
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
           marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-          window.location="paciente.html?id="+paciente.id;
+            goToPacient(marker);
         });
       });
     }
   }
 }
-function goToPacient(str){
-  var index=str.indexOf("-id=")+4;
-  window.location="paciente.html?id="+str.substring(index);
-
+function goToPacient(geo){
+  // geo = {"lat":nro,"lng":nro}
+  var patients=window.memory.patients;
+  for(patient in patients){
+    paciente=patients[patient];
+    if(paciente.geo.latitud==geo.lat&&paciente.geo.longitud==geo.lng&&){
+      window.location="paciente.html?id="+paciente.id;
+    }
+  }
 }
