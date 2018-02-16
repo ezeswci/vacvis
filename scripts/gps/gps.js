@@ -11,24 +11,25 @@ function onDeviceReadyGps() {
   BackgroundGeolocation.configure({
     debug: true,
     desiredAccuracy:'HIGH_ACCURACY',
-    maxLocations:10// No me interesa mucho guardar las locations, por eso le pongo 10
+    maxLocations:1// No me interesa mucho guardar las locations, por eso le pongo 1
   });
   //checkStatusGPS();
-  setTimeout(function(){ getLocationGps(); }, 1000);
+  BackgroundGeolocation.start();
+  setTimeout(function(){ getLocationGps(); }, 2000);
 }
 function getLocationGps(){
-  BackgroundGeolocation.start();
   BackgroundGeolocation.checkStatus(checkStatusSuccess, checkStatusFail);
 }
 // Como me da el status [{"isRunning":true/false, 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
 function checkStatusSuccess(response){
   if(response.isRunning){
-    BackgroundGeolocation.start();
     BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
   }
   else{// Apagado
-    BackgroundGeolocation.start();
-    getLocationGps();
+    setTimeout(function(){
+      BackgroundGeolocation.start();
+      getLocationGps();
+    }, 1000);
   }
 }
 function checkStatusFail(response){
@@ -37,12 +38,13 @@ function checkStatusFail(response){
 }
 // start()
 function getLocationsSuccess(response){
-  alert('getLocationsSuccess: '+JSON.stringify(response));
   if(response.length>0){
     window.gpslocation=response[0];
     BackgroundGeolocation.stop();
   }else{
-    BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
+    setTimeout(function(){
+      BackgroundGeolocation.getLocations(getLocationsSuccess, getLocationsFail);
+    }, 500);
   }
 }
 // Como me da las locations window.location= [{provider:'gps', 'time':nro,"latitude":-34.4191274,"longitude":-58.81449651,"accuracy":10.618999481201172}]
