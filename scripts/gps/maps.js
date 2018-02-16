@@ -76,8 +76,8 @@ function openOnlyOnePacient(){
     }
   }
 }
-function goToPacient(string){
-  var index=string.indexOf("-id=")+4;
-  window.location="paciente.html?id="string.substring(index);
+function goToPacient(str){
+  var index=str.indexOf("-id=")+4;
+  window.location="paciente.html?id="+str.substring(index);
 
 }

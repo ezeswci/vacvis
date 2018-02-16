@@ -30,14 +30,16 @@ if(getCookie("user")!=""){
     if(checkIfSyncPendient()){
       $( "#refreshLoader" ).append('<span class="dotted dotted-danger"></span>');
     }
-    $( "#refreshLoader" ).click(function() {
-      if(checkIfSyncPendient()){
-        refreashLoader();
-        $("#refreshLoader").button('loading');
-      }else{
-        toastr.success('Todo está sincronizado');
-      }
-    });
+    if($( "#refreshLoader" ).length){
+      $( "#refreshLoader" ).click(function() {
+        if(checkIfSyncPendient()){
+          refreashLoader();
+          $("#refreshLoader").button('loading');
+        }else{
+          toastr.success('Todo está sincronizado');
+        }
+      });
+    }
   }, 600);
 }
 //window.patientsIdsFromServer
