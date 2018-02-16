@@ -39,8 +39,10 @@ function allPacients(){
     },
      function(marker) {
        var pid=paciente.id;
-        marker.on(plugin.google.maps.event.INFO_CLICK, function(pid) {
-          window.location="paciente.html?id="+pid;
+        marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
+          console.log(JSON.stringify(marker));
+          alert(JSON.stringify(marker));
+          //window.location="paciente.html?id="+pid;
       });
     });
   }
