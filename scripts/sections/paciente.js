@@ -165,7 +165,7 @@ function distanciaEnElMapa(){
     buttons: {
         cancel: {
             label: 'Mapa',
-            className: 'btn-info'
+            className: 'btn-info',
             callback: function() {
               openPacientMap();
             }
