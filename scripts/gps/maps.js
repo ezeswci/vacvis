@@ -35,8 +35,14 @@ function allPacients(){
       position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
       title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
       snippet: "Proxima: "+parseDate(paciente.proxima_prestacion)+" \n" +'<button type="button" class="btn btn-success" href="paciente.html?id='+paciente.id+'">VER</button>',
+      id: paciente.id,
       animation: plugin.google.maps.Animation.BOUNCE
-    },);
+    },
+     function(marker) {
+        marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
+          alert(marker.get('id'));
+          window.location="paciente.html?id="+marker.get('id');
+      }););
   }
 }
 function openOnlyOnePacient(){
