@@ -14,6 +14,7 @@ function volverAlAnterior(){
   }
 }
 function onMapReady(){
+    map.clear();// Comienza siempre con un mapa fresco
   if(getQueryVariableTranslated("id")>0){
     openOnlyOnePacient();
   }else{
@@ -27,7 +28,7 @@ function allPacients(){
     if(patient==0){
       map.animateCamera({
         target: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        zoom: 13
+        zoom: 10
       });
     }
     map.addMarker({
