@@ -7,7 +7,7 @@ document.addEventListener("deviceready", function() {
   map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
 }, false);
 function volverAlAnterior(){
-  if(getQueryVariableTranslated("id")!=null){
+  if(getQueryVariableTranslated("id")>0){
     window.location='paciente.html?id='+getQueryVariableTranslated("id");
   }else{
     window.location='pacientes.html';
@@ -15,7 +15,7 @@ function volverAlAnterior(){
 }
 function onMapReady(){
   alert("map ready");
-  if(getQueryVariableTranslated("id")!=null){
+  if(getQueryVariableTranslated("id")>0){
     alert("only One: "+getQueryVariableTranslated("id"));
     openOnlyOnePacient(getQueryVariableTranslated("id"));
   }else{
@@ -41,15 +41,22 @@ function allPacients(){
       });
     });
   }
-  /*
-    map.addCircle({
-    'center': {lat: ..., lng: ...},
-    'radius': 300,
-    'strokeColor' : '#AA00FF',
-    'strokeWidth': 5,
-    'fillColor' : '#880000'
-  }, function(circle) { ... });
-  */
+  /*plugin.google.maps.LocationService.getMyLocation(function(result) {
+    alert(["Current your location:\n",
+        "latitude:" + location.latLng.lat.toFixed(3),
+        "longitude:" + location.latLng.lng.toFixed(3),
+        "speed:" + location.speed,
+        "time:" + location.time,
+        "bearing:" + location.bearing].join("\n"));
+        map.addCircle({
+        'center': {lat: location.latLng.lat, lng: location.latLng.lng},
+        'radius': 20,
+        'strokeColor' : '#AA00FF',
+        'strokeWidth': 5,
+        'fillColor' : '#880000'
+      }, function(circle) { ... });
+  });*/
+
 }
 /*
 function onMapReady() {
