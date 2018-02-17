@@ -35,10 +35,10 @@
 
 	<!-- GPS -->
   <plugin name="cordova-plugin-mauron85-background-geolocation"/>
-	<!-- Core plugins -->
+	<!-- Core plugins 1.4.5 -->
     <plugin name="com.cmackay.plugins.googleanalytics" source="npm" />
     <plugin name="cordova-plugin-inappbrowser" source="npm" />
-    <plugin name="cordova-plugin-googlemaps" spec="2.0.0">
+    <plugin name="cordova-plugin-googlemaps">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAN1MZhpJ6o5-tOABdfUurxrHapSvQO-70" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCLbJHW9Ira14XC1MWHxu5wlPTYrugAb1w" />
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="My custom when in use message" />

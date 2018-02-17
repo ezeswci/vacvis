@@ -35,7 +35,6 @@ function allPacients(){
         position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
         title:" Titulo ",
         snippet: "Proxima: "
-      }
       });
   }
 }
