@@ -33,8 +33,13 @@ function allPacients(){
     }
       map.addMarker({
         position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        title:" Titulo ",
-        snippet: "Proxima: "
+        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        animation: plugin.google.maps.Animation.BOUNCE
+      }, function(marker) {
+          marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
+            goToPacient(marker);
+        });
       });
   }
 }
@@ -61,20 +66,16 @@ function openOnlyOnePacient(){
         snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
-          marker.showInfoWindow();
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);
         });
-          marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
-                             marker.showInfoWindow();
-                           }
-          );
       });
     }
   }
 }
 function goToPacient(geo){
   // geo = {"lat":nro,"lng":nro}
+  alert(geo);
   var patients=window.memory.patients;
   for(patient in patients){
     paciente=patients[patient];
