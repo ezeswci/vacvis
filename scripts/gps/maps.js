@@ -33,20 +33,9 @@ function allPacients(){
     }
       map.addMarker({
         position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
-        animation: plugin.google.maps.Animation.BOUNCE
-      },
-       function(marker) {
-         marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
-                            alert("test");
-                            setTimeout(function(){ marker.showInfoWindow(); }, 100);
-                          }
-         );
-          marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
-            goToPacient(marker);// {"lat":nro,"lng":nro}
-        });
-
+        title:" Titulo ",
+        snippet: "Proxima: "
+      }
       });
   }
 }
