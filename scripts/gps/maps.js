@@ -38,13 +38,15 @@ function allPacients(){
         animation: plugin.google.maps.Animation.BOUNCE
       },
        function(marker) {
+         marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
+                            alert("test");
+                            setTimeout(function(){ marker.showInfoWindow(); }, 100);
+                          }
+         );
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);// {"lat":nro,"lng":nro}
         });
-          marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
-                             marker.showInfoWindow();
-                           }
-          );
+
       });
   }
 }
