@@ -14,7 +14,7 @@ function volverAlAnterior(){
   }
 }
 function onMapReady(){
-  map.clear();// Comienza siempre con un mapa fresco
+    map.clear();// Comienza siempre con un mapa fresco
   if(getQueryVariableTranslated("id")>0){
     openOnlyOnePacient();
   }else{
@@ -41,11 +41,11 @@ function allPacients(){
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);// {"lat":nro,"lng":nro}
         });
-        // para ios
-        marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
-                           marker.showInfoWindow();
-                         }
-        });
+          marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
+                             marker.showInfoWindow();
+                           }
+          );
+      });
   }
 }
 function openOnlyOnePacient(){
@@ -74,12 +74,11 @@ function openOnlyOnePacient(){
           marker.showInfoWindow();
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);
-          });
-          // para ios
+        });
           marker.addEventListener( plugin.google.maps.event.MARKER_CLICK, function() {
                              marker.showInfoWindow();
                            }
-          });
+          );
       });
     }
   }
