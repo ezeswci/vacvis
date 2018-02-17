@@ -30,20 +30,31 @@ function allPacients(){
         target: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
         zoom: 10
       });
-    }
-    map.addMarker({
-      id:paciente.id,
-      position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-      title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-      snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
-      animation: plugin.google.maps.Animation.BOUNCE
-    },
-     function(marker) {
-       var pid=paciente.id;
-        marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
-          goToPacient(marker);// {"lat":nro,"lng":nro}
+      map.addMarker({
+        position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        animation: plugin.google.maps.Animation.BOUNCE
+      },
+       function(marker) {
+         marker.showInfoWindow();
+          marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
+            goToPacient(marker);// {"lat":nro,"lng":nro}
+        });
       });
-    });
+    }else{
+      map.addMarker({
+        position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
+        title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
+        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        animation: plugin.google.maps.Animation.BOUNCE
+      },
+       function(marker) {
+          marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
+            goToPacient(marker);// {"lat":nro,"lng":nro}
+        });
+      });
+    }
   }
 }
 function openOnlyOnePacient(){
@@ -69,6 +80,7 @@ function openOnlyOnePacient(){
         snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
+          marker.showInfoWindow();
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
             goToPacient(marker);
         });
