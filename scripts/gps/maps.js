@@ -75,11 +75,17 @@ function openOnlyOnePacient(){
 }
 function goToPacient(geo){
   // geo = {"lat":nro,"lng":nro}
-  alert(geo);
   var patients=window.memory.patients;
   for(patient in patients){
     paciente=patients[patient];
     if(paciente.geo.latitud==geo.lat&&paciente.geo.longitud==geo.lng){
+      window.location="paciente.html?id="+paciente.id;
+    }
+  }
+  // Por que en ios los mueve apenas .toFixed(2);
+  for(patient in patients){
+    paciente=patients[patient];
+    if(parseFloat(paciente.geo.latitud).toFixed(4)==parseFloat(geo.lat).toFixed(4)&&parseFloat(paciente.geo.longitud).toFixed(4)==parseFloat(geo.lng).toFixed(4)){
       window.location="paciente.html?id="+paciente.id;
     }
   }
