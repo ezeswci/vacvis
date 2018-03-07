@@ -26,10 +26,9 @@ function allPacients(){
   for(patient in patients){
     paciente=patients[patient];
     if(patient==0){
-      map.animateCamera({
+      map.moveCamera({
         target: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        zoom: 10,
-        duration:1
+        zoom: 10
       });
     }
       map.addMarker({
@@ -45,10 +44,9 @@ function allPacients(){
   }
 }
 function openOnlyOnePacient(){
-  map.animateCamera({
+  map.moveCamera({
     target: {lat: getQueryVariableTranslated("lat"), lng: getQueryVariableTranslated("lng")},
-    zoom: 13,
-    duration:1
+    zoom: 13
   });
   map.addCircle({
   'center': {lat: getQueryVariableTranslated("lat"), lng: getQueryVariableTranslated("lng")},
