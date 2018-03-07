@@ -28,13 +28,14 @@ function allPacients(){
     if(patient==0){
       map.animateCamera({
         target: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
-        zoom: 10
+        zoom: 10,
+        duration:1
       });
     }
       map.addMarker({
         position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
         title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        snippet: "Prestaciones: "+parsePrestacionesName(paciente.prestaciones),
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
@@ -46,7 +47,8 @@ function allPacients(){
 function openOnlyOnePacient(){
   map.animateCamera({
     target: {lat: getQueryVariableTranslated("lat"), lng: getQueryVariableTranslated("lng")},
-    zoom: 13
+    zoom: 13,
+    duration:1
   });
   map.addCircle({
   'center': {lat: getQueryVariableTranslated("lat"), lng: getQueryVariableTranslated("lng")},
@@ -63,7 +65,7 @@ function openOnlyOnePacient(){
       map.addMarker({
         position: {lat: paciente.geo.latitud, lng: paciente.geo.longitud},
         title: paciente.name+" "+paciente.lastname+" \n" +paciente.dir,
-        snippet: "Proxima: "+parseDate(paciente.proxima_prestacion),
+        snippet: "Prestaciones: "+parsePrestacionesName(paciente.prestaciones),
         animation: plugin.google.maps.Animation.BOUNCE
       }, function(marker) {
           marker.on(plugin.google.maps.event.INFO_CLICK, function(marker) {
