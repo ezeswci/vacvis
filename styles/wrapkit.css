@@ -29,7 +29,7 @@ body {
 
 .sidebar {
     position: absolute;
-    top: 50px;
+    top: 60px;/* Le agregue 10 para lo de arriba de ios */
     bottom: 0;
     z-index: 9
 }
@@ -80,7 +80,8 @@ body>#external-iframe-link {
 .header.navbar {
     border-width: 0;
     border-radius: 0;
-    margin-bottom: 0
+    margin-bottom: 0;
+    padding-top: 10px; /* Le agregue 10 para lo de arriba de ios */
 }
 
 .header.navbar .navbar-toggle-alt {

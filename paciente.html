@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="initial-scale=1">
+	<meta name="viewport" content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title>Paciente</title>
   <script src="scripts/sections/css.js"></script>
 </head>
@@ -47,11 +47,16 @@
               <div class="timeline-badge">
                 <a class="border-teal" rel="tooltip" title="" data-container="body" href="#"></a>
               </div>
-              <div class="timeline-panel panel fade in panel-default panel-fill" data-fill-color="true" data-init-panel="true">
+              <div class="timeline-panel panel fade in panel-info panel-fill" data-fill-color="true" data-init-panel="true">
+                <div class="panel-heading">
+                  <div class="form-group">
+                      <label>Seleccionar prestaciones a realizar</label><br>
+                      <div id="prestaciones-realizar">
+                        <i class="fa fa-spinner fa-spin"></i>
+                      </div>
+                  </div>
+                </div>
                 <div class="panel-body">
-                  <ul class="nav nav-tabs nav-contrast-teal">
-                    <li class="active"><a data-toggle="tab" href="#">Nueva prestación</a></li>
-                  </ul>
                   <div class="tab-content pt-1x">
                     <textarea id="textComentario" name="timelinePost" rows="6" class="form-control autogrow no-border no-resize" placeholder="Agregar un detalle" style="overflow: hidden; min-height: 6em; height: 52px;"></textarea><div class="autogrow-textarea-mirror" style="display: none; word-wrap: break-word; white-space: normal; padding: 6px 12px; width: 91px; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px;">.<br>.</div><div class="autogrow-textarea-mirror" style="display: none; word-wrap: break-word; white-space: normal; padding: 6px 12px; width: 91px; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px;">.<br>.</div>
                   </div>

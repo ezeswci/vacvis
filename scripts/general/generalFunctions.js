@@ -1,4 +1,5 @@
-window.apiurl='http://191.234.177.161/vacunar/';
+window.apiurl='http://191.234.177.161/vacunartest/';
+//window.gpslocation={"latitude":-34.4113614,"longitude":-58.8337757};
 // Parse tamplates
 function parseTemplate(props, template)
 {
@@ -69,7 +70,10 @@ function checkCookie(){ // Check if cookies are enable
 }
 // Otros general
 function generalErrors(xhr){
-	// xhr.status
+	console.log(JSON.stringify(xhr));
+	if(xhr.status==401){// No esta logueado
+		exitSession();
+	}
 	toastr.error('Sin conexión');
 }
 function parseDate(date){
@@ -79,6 +83,22 @@ function parseDate(date){
 	var hora= date.substring(11, 13);// hora
 	var minutos=date.substring(14, 16);// minutos
   return dia+'/'+mes+' '+hora+':'+minutos+' Hs ';
+}
+function parsePrestacionesName(prestaciones){
+	var txt='';
+	for(prestacion in prestaciones){
+		if(txt.length>0){txt+=', ';}
+		txt+=(prestaciones[prestacion].nombre!=null)?prestaciones[prestacion].nombre:prestaciones[prestacion].prestacion_nombre;
+	}
+	return (txt.length>0)?txt:'Sin prestaciones asignadas';
+}
+function parsePrestacionesInput(prestaciones){
+	var txt='';
+	for(prestacion in prestaciones){
+		if(txt.length>0){txt+=', ';}
+		txt+='<input type="text" class="form-control" value="'+prestaciones[prestacion].nombre+' ('+prestaciones[prestacion].frecuencia+')" disabled="" disabled="" style="background: white;">';
+	}
+	return (txt.length>0)?txt:'Sin prestaciones asignadas';
 }
 function getQueryVariableTranslated(variable) {
   var query = window.location.search.substring(1);

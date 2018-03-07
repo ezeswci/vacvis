@@ -2,8 +2,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.VacVis"
-        android-versionCode="17"
-        version   = "1.0.2">
+        android-versionCode="20"
+        version   = "1.0.5">
 
     <name>Visitas medicas</name>
 
@@ -66,6 +66,7 @@
     <icon src="img/res/icons/ios/icon-76@2x.png" width="152" height="152"/>
     <icon src="img/res/icons/ios/icon-167.png" width="167" height="167"/>
     <icon src="img/res/icons/ios/icon-83.5@2x.png" width="167" height="167"/>
+    <icon src="img/res/icons/ios/icon-1024.png" width="1024" height="1024" />
     <!--  Legacy portrait  -->
     <splash src="img/res/screens/ios/Default~iphone.png" width="320" height="480"/>
     <splash src="img/res/screens/ios/Default@2x~iphone.png" width="640" height="960"/>

@@ -61,9 +61,10 @@ function managePatientServer(paciente){
       window.memory.patients[mpatient].dir=paciente.dir;
       window.memory.patients[mpatient].phone=paciente.phone;
       window.memory.patients[mpatient].dni=paciente.dni;
-      window.memory.patients[mpatient].ultima_prestacion=paciente.ultima_prestacion;
-      window.memory.patients[mpatient].proxima_prestacion=paciente.proxima_prestacion;
-      window.memory.patients[mpatient].frecuencia=paciente.frecuencia;
+      window.memory.patients[mpatient].prestaciones=paciente.prestaciones;
+      //window.memory.patients[mpatient].ultima_prestacion=paciente.ultima_prestacion;
+      //window.memory.patients[mpatient].proxima_prestacion=paciente.proxima_prestacion;
+      //window.memory.patients[mpatient].frecuencia=paciente.frecuencia;
       window.memory.patients[mpatient].geo.latitud=paciente.geo.latitud;
       window.memory.patients[mpatient].geo.longitud=paciente.geo.longitud;
       window.memory.patients[mpatient].lastSync=sync;
@@ -75,15 +76,16 @@ function managePatientServer(paciente){
     }
 }
 function parsePaciente(paciente){
+  $( "#prestaciones-realizar").html(addPosiblePrestaciones(paciente.prestaciones));
   template_panel_paciente_props = {
     '{PACIENTE_ID}': paciente.id,
     '{PACIENTE_NOMBRE}': paciente.name,
     '{PACIENTE_APELLIDO}': paciente.lastname,
     '{PACIENTE_DIRECCION}': paciente.dir,
     '{PACIENTE_IMAGE}': "images/img/old.svg",
-    '{ULTIMA_PRESTACION}': parseDate(paciente.ultima_prestacion),
-    '{PROXIMA_PRESTACION}': parseDate(paciente.proxima_prestacion),
-    '{FRECUENCIA}': paciente.frecuencia,
+    //'{ULTIMA_PRESTACION}': parseDate(paciente.ultima_prestacion),
+    //'{PROXIMA_PRESTACION}': parseDate(paciente.proxima_prestacion),
+    '{PRESTACIONES}': parsePrestacionesInput(paciente.prestaciones),
     '{TELEFONO}': paciente.phone,
     '{DNI}': paciente.dni
   }
@@ -130,7 +132,8 @@ function parseVisitas(visitas){
       '{SYNC_STATUS}': true,
       '{PRESTACION_ID}': visitas[vista].id,
       '{CONTENIDO}': contenido,
-    	'{PROFILE_IMAGE}': "images/img/doctor.svg"
+    	'{PROFILE_IMAGE}': "images/img/doctor.svg",
+      '{PRESTACIONES}': parsePrestacionesName(visitas[vista].prestaciones)
     }
     var prestacion=parseTemplate(template_prestacion,PANEL_PRESTACION);
     if(i==0){
@@ -225,7 +228,9 @@ function agregarComentario(el,id){
 /* Agregar una visita */
 function agregarVisita(el){
     $(el).button('loading');
-    if($("#textComentario").val().length>2){
+    var prestaciones = getSelectedPrestaciones();
+    if($("#textComentario").val().length>2 && prestaciones.length>0){
+      var pid=getQueryVariableTranslated("id");
       var date=parseDateToServer(new Date());
       var dirGps=getGpsDir();
       var dir = dirGps.dir;
@@ -240,6 +245,7 @@ function agregarVisita(el){
         "dir": dir,
         "location": lat+";"+lng,
         "id_paciente": pid,
+        "prestaciones":prestaciones,
         "id_prestador": user.prestador_id,
         "detail": $("#textComentario").val(),
         "caso_id": 5,
@@ -248,7 +254,8 @@ function agregarVisita(el){
     		        "longitud": lng
     		    }
           });
-      var pid=getQueryVariableTranslated("id");
+      //console.log(apiurl+'api/patients/'+pid+'/visits/new');
+      console.log(datas);
       var jqxhr = $.ajax({
                       method: "POST",
                       url: apiurl+'api/patients/'+pid+'/visits/new',
@@ -273,18 +280,58 @@ function agregarVisita(el){
                     });
   }else{
     $(el).button('reset');
-    bootbox.dialog({
-      message: 'No se pueden agregar detalles vacíos',
-      title: 'Detalle vacío',
-      buttons: {
-        success: {
-          label: 'Aceptar',
-          className: 'btn-success'
+    if($("#textComentario").val().length<2){
+      bootbox.dialog({
+        message: 'No se pueden agregar detalles vacíos',
+        title: 'Detalle vacío',
+        buttons: {
+          success: {
+            label: 'Aceptar',
+            className: 'btn-success'
+          }
         }
-      }
-    });
+      });
+    }else{// No eligio prestaciones
+      bootbox.dialog({
+        message: 'No se puede generar una visita sin ninguna prestación seleccionada',
+        title: 'Sin prestaciones seleccionadas',
+        buttons: {
+          success: {
+            label: 'Aceptar',
+            className: 'btn-success'
+          }
+        }
+      });
+    }
   }
 }
+function addPosiblePrestaciones(prestaciones){
+  	var txt='';
+  	for(prestacion in prestaciones){
+  		txt+='<div class="nice-checkbox nice-checkbox-inline"  style="margin-left: 10px;margin-top: 5px;"> <input class="checkbox-o" type="checkbox" name="niceCheckAlt" value="'+prestaciones[prestacion].prestacion_id+'" id="niceCheckAlt'+prestaciones[prestacion].prestacion_id+'" ><label for="niceCheckAlt'+prestaciones[prestacion].prestacion_id+'">'+prestaciones[prestacion].nombre+'</label></div>';
+  	}
+    if(txt.length>0){return txt;}else{
+      return 'Sin prestaciones asignadas';
+    }
+}
+function getSelectedPrestaciones(){
+  var prestaciones =[];
+  $( "#prestaciones-realizar input:checked").each(function() {
+       prestaciones.push(parseInt($(this).val()));
+     });
+  return prestaciones;
+}
+/*
+<!--/nice-checkbox-->
+<div class="nice-checkbox nice-checkbox-inline">
+  <input class="checkbox-o" type="checkbox" name="niceCheckAlt" id="niceCheckAlt2">
+  <label for="niceCheckAlt2">Observacion</label>
+</div><!--/nice-checkbox-->
+<div class="nice-checkbox nice-checkbox-inline">
+  <input class="checkbox-o" type="checkbox" name="niceCheckAlt" id="niceCheckAlt3">
+  <label for="niceCheckAlt3">Malestar</label>
+</div><!--/nice-checkbox-->
+*/
 
 var TEMPLATE_CONTAINER=''
 +'<li class="timeline-item">'
@@ -318,7 +365,7 @@ var PANEL_PRESTACION=''
 +'        </a>'
 +'      </div><!-- /.media-left -->'
 +'      <div class="media-body">'
-+'        <p class="media-heading"><strong>Prestación</strong> <br><small class="text-muted">{PRESTACION_FECHA}</small></p>'
++'        <p class="media-heading"><strong>{PRESTACIONES}</strong> <br><small class="text-muted">{PRESTACION_FECHA}</small></p>'
 +'      </div><!-- /.media-body -->'
 +'    </div><!-- /.media -->'
 +'    <p>{CONTENIDO}</p>'
@@ -348,27 +395,6 @@ var PANEL_DATOS_PACIENTE=''
 +'          <div class="panel-body">'
 +'            <form role="form">'
 +'              <div class="form-group">'
-+'                <label class="control-label" for="mask-date">Última prestación </label>'
-+'                <div class="input-group input-group-in">'
-+'                  <span class="input-group-addon"><i class="icon-calendar"></i></span>'
-+'                  <input data-mask="date" id="mask-date" class="form-control" placeholder="{ULTIMA_PRESTACION}" disabled="">'
-+'                </div><!-- /input-group-in -->'
-+'              </div><!--/form-group-->'
-+'              <div class="form-group">'
-+'                <label class="control-label" for="mask-time">Frecuencia</label>'
-+'                <div class="input-group input-group-in">'
-+'                  <span class="input-group-addon"><i class="icon-clock"></i></span>'
-+'                  <input data-mask="time" id="mask-time" class="form-control" placeholder="{FRECUENCIA}" disabled="">'
-+'                </div><!-- /input-group-in -->'
-+'              </div><!--/form-group-->'
-+'              <div class="form-group">'
-+'                <label class="control-label" for="mask-datetime">Próxima prestación</label>'
-+'                <div class="input-group input-group-in">'
-+'                  <span class="input-group-addon"><i class="fa fa-calendar-o"></i></span>'
-+'                  <input data-mask="date_time" id="mask-datetime" class="form-control" placeholder="{PROXIMA_PRESTACION}" disabled="">'
-+'                </div><!-- /input-group-in -->'
-+'              </div><!--/form-group-->'
-+'              <div class="form-group">'
 +'                <label class="control-label" for="mask-phonecode">Teléfono </label>'
 +'                <div class="input-group input-group-in">'
 +'                  <span class="input-group-addon"><i class="fa fa-phone"></i></span>'
@@ -382,6 +408,10 @@ var PANEL_DATOS_PACIENTE=''
 +'                  <input data-mask="mask-dni" id="mask-dni" class="form-control" placeholder="{DNI}" disabled="">'
 +'                </div><!-- /input-group-in -->'
 +'              </div>'
++'              <div class="form-group">'
++'                <label class="control-label" for="mask-datetime">Prestaciones</label>'
++'                {PRESTACIONES}'
++'              </div><!--/form-group-->'
 +'              <!--/form-group-->'
 +'            </form><!--/form-->'
 +'          </div><!-- /panel-body -->'

@@ -73,8 +73,9 @@ function managePatientsServer(xhr){
         window.memory.patients[mpatient].dir=xhr.Patients[patient].dir;
         window.memory.patients[mpatient].phone=xhr.Patients[patient].phone;
         window.memory.patients[mpatient].dni=xhr.Patients[patient].dni;
-        window.memory.patients[mpatient].ultima_prestacion=xhr.Patients[patient].ultima_prestacion;
-        window.memory.patients[mpatient].proxima_prestacion=xhr.Patients[patient].proxima_prestacion;
+        window.memory.patients[mpatient].prestaciones=xhr.Patients[patient].prestaciones;
+        //window.memory.patients[mpatient].ultima_prestacion=xhr.Patients[patient].ultima_prestacion;
+        //window.memory.patients[mpatient].proxima_prestacion=xhr.Patients[patient].proxima_prestacion;
         window.memory.patients[mpatient].geo.latitud=xhr.Patients[patient].geo.latitud;
         window.memory.patients[mpatient].geo.longitud=xhr.Patients[patient].geo.longitud;
         break;
@@ -87,8 +88,9 @@ function managePatientsServer(xhr){
       "dir":xhr.Patients[patient].dir,
       "phone":xhr.Patients[patient].phone,
       "dni":xhr.Patients[patient].dni,
-      "ultima_prestacion":xhr.Patients[patient].ultima_prestacion,
-      "proxima_prestacion":xhr.Patients[patient].proxima_prestacion,
+      "prestaciones":xhr.Patients[patient].prestaciones,
+      //"ultima_prestacion":xhr.Patients[patient].ultima_prestacion,
+      //"proxima_prestacion":xhr.Patients[patient].proxima_prestacion,
       "geo":{"latitud":xhr.Patients[patient].geo.latitud,"longitud":xhr.Patients[patient].geo.longitud},
       "Visitas":[],
       "lastSync":null
@@ -114,7 +116,7 @@ function parsePacientes(patients){
     	'{LAST_NAME}': paciente.lastname,
       '{DIR}': paciente.dir,
     	'{PROFILE_IMAGE}': "images/img/old.svg",
-    	'{PROXIMA_PRESTACION}': parseDate(paciente.proxima_prestacion)
+    	'{PRESTACIONES}': parsePrestacionesName(paciente.prestaciones)
     }
     if($("#paciente-"+paciente.id+"-").length == 0){// Si no existe lo agrega
       $("#pacients-container").append(parseTemplate(template_panel_paciente_props,TEMPLATE_PANEL_PACIENTE));
@@ -146,7 +148,7 @@ var TEMPLATE_PANEL_PACIENTE = ''
 +'                </div>'
 +'                <!-- /.media-body -->'
 +'            </div>'
-+'            <p><strong>Próxima prestación:</strong> {PROXIMA_PRESTACION} </p>'
++'            <p><strong>Prestaciones:</strong> {PRESTACIONES} </p>'
 +'        </div>'
 +'        <!-- /.search-result-item -->'
 +'    </div>'
