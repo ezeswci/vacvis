@@ -2,8 +2,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.VacVis"
-        android-versionCode="22"
-        version   = "1.0.6">
+        android-versionCode="23"
+        version   = "1.0.7">
 
     <name>Visitas medicas</name>
 
